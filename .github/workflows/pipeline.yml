@@ -55,7 +55,10 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
-
+    - name: Verify pwd
+      run: pwd
+    - name: Verify target directory
+      run: ls -l target
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
