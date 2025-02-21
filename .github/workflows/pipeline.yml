@@ -32,6 +32,17 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean package
+    - name: Verify pwd
+      run: pwd
+    - name: Verify target directory
+      run: ls -l target
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4.6.0
+      with:
+        # Artifact name
+        name: dashboardapi-artifact
+        # A file, directory or wildcard pattern that describes what to upload
+        path: target/dashboardapi-0.0.1-SNAPSHOT.war
 
   deploy:
     name: Deploy
@@ -53,7 +64,16 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
-
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v4.1.8
+      with:
+        # Name of the artifact to download. If unspecified, all artifacts for the run are downloaded.
+        name: dashboardapi-artifact
+        path: target/dashboardapi-0.0.1-SNAPSHOT.war
+    - name: Verify pwd
+      run: pwd
+    - name: Verify target directory
+      run: ls -l target
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
