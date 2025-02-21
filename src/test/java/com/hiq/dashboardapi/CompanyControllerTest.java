@@ -25,7 +25,7 @@ class CompanyControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/companies/{id}", 1L)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").value("HiQ Syd AB!"));
+                .andExpect(jsonPath("$").value("HiQ Syd AB!!"));
     }
 }
 

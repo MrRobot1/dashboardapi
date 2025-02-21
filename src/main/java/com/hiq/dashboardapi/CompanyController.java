@@ -11,6 +11,6 @@ public class CompanyController {
 
     @GetMapping("/{id}")
     public String getCompany(@PathVariable Long id) {
-        return "HiQ Syd AB!";
+        return "HiQ Syd AB!!";
     }
 }
