@@ -36,12 +36,10 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
+    - name: Test with Maven
       run: mvn clean test
     - name: Verify pwd
       run: pwd
-    - name: Verify target directory
-      run: ls -l target
 
   build-deploy:
     name: Build and Deploy
@@ -65,8 +63,6 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
     - name: Verify pwd
       run: pwd
-    - name: Verify target directory
-      run: ls -l target
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
