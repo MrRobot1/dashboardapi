@@ -25,7 +25,7 @@ env:
                                                # containerDefinitions section of your task definition
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     
     steps:
@@ -37,24 +37,17 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean package
+      run: mvn clean test
     - name: Verify pwd
       run: pwd
     - name: Verify target directory
       run: ls -l target
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.6.0
-      with:
-        # Artifact name
-        name: dashboardapi-artifact
-        # A file, directory or wildcard pattern that describes what to upload
-        path: target/dashboardapi-0.0.1-SNAPSHOT.jar
 
-  deploy:
-    name: Deploy
+  build-deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
     environment: production
-    needs: build
+    needs: test
 
     steps:
     - name: Checkout
@@ -70,12 +63,6 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v4.1.8
-      with:
-        # Name of the artifact to download. If unspecified, all artifacts for the run are downloaded.
-        name: dashboardapi-artifact
-        path: target/dashboardapi-0.0.1-SNAPSHOT.jar
     - name: Verify pwd
       run: pwd
     - name: Verify target directory
