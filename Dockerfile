@@ -1,5 +1,5 @@
 # Use an OpenJDK 21 base image with Maven pre-installed
-FROM maven:3.8.6-openjdk-21-slim AS build
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 
 # Set the working directory inside the container
 WORKDIR /app
