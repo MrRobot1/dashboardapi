@@ -39,7 +39,7 @@ jobs:
 
     - name: Test with Maven
       env:
-        PARAMETER_SECRET: helloworldgithubactions
+        PARAMETER_SECRET: ${{ secrets.PARAMETER_SECRET }}
       run: mvn clean test
     - name: Verify pwd
       run: pwd
