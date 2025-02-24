@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/companies")
 public class CompanyController {
 
-    @Value("${testParameterSecret}")
-    private String testParameterSecret;
+    @Value("${parameterSecret}")
+    private String parameterSecret;
 
     @GetMapping("/{id}")
     public String getCompany(@PathVariable Long id) {
-        return "HiQ Syd AB!!: " + testParameterSecret;
+        return "HiQ Syd AB!!: " + parameterSecret;
     }
 }
